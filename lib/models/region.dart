@@ -10,10 +10,11 @@ class Region {
   });
 
   factory Region.fromJson(Map<String, dynamic> json) {
+    print(json['hierarchyInfo']['country']['name']);
     return Region(
-        regionId: json['data'][0]['gaiaId'],
-        regionName: json['data']['0']['regionNames']['shortName'],
-        country: json['data'][0]['hierarchyInfo']['country']['name']);
+        regionId: json['gaiaId'],
+        regionName: json['regionNames']['shortName'],
+        country: json['hierarchyInfo']['country']['name']);
   }
 
   //TODO implement Region.fromJson
