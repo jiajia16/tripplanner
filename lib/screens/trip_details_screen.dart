@@ -31,24 +31,59 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
         title: const Text('Trip Details'),
       ),
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 2),
-      body: ElevatedButton(
-        //TODO Design UI
-        child: const Text('SAVE'),
-        onPressed: () async {
-          Region _region = await ApiCalls().getRegionId(regionController.text);
-          tripDetails = TripDetails(
-            regionId: _region.regionId,
-            regionName: _region.regionName,
-            country: _region.country,
-            checkIn: checkInController.text,
-            checkOut: checkOutController.text,
-            adults: int.parse(adultsController.text),
-          );
-          //TODO Calls FirebaseCalls().updateTrip() to update values to Firebase
-          //TODO Navigates to HomeScreen
-          // get region ID base on what user enter in controller 'ApiCalls().getRegionID()'
-          // get fields and save it inside database
-        },
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          const Text(
+            'Where to next, Christabel?',
+            textAlign: TextAlign.left,
+            style: TextStyle(color: Colors.black, fontSize: 15.0),
+          ),
+          TextField(
+            autofocus: true,
+            textAlign: TextAlign.center,
+            decoration: const InputDecoration(labelText: 'Destination'),
+            controller: regionController,
+          ),
+          TextField(
+            textAlign: TextAlign.center,
+            decoration:
+                const InputDecoration(labelText: 'Check-in Date (YYYY-MM-DD)'),
+            controller: checkInController,
+          ),
+          TextField(
+            textAlign: TextAlign.center,
+            decoration:
+                const InputDecoration(labelText: 'Check-out Date (YYYY-MM-DD)'),
+            controller: checkOutController,
+          ),
+          TextField(
+            textAlign: TextAlign.center,
+            decoration: const InputDecoration(labelText: 'No.of Adults'),
+            controller: adultsController,
+          ),
+          ElevatedButton(
+            //TODO Design UI
+            child: const Text('SAVE'),
+            onPressed: () async {
+              Region _region =
+                  await ApiCalls().getRegionId(regionController.text);
+              tripDetails = TripDetails(
+                regionId: _region.regionId,
+                regionName: _region.regionName,
+                country: _region.country,
+                checkIn: checkInController.text,
+                checkOut: checkOutController.text,
+                adults: int.parse(adultsController.text),
+              );
+              Navigator.pop(context, regionController.text);
+              //TODO Calls FirebaseCalls().updateTrip() to update values to Firebase
+              //TODO Navigates to HomeScreen
+              // get region ID base on what user enter in controller 'ApiCalls().getRegionID()'
+              // get fields and save it inside database
+            },
+          ),
+        ],
       ),
     );
   }
