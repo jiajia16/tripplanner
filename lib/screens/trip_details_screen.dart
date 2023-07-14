@@ -76,12 +76,10 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                 checkOut: checkOutController.text,
                 adults: int.parse(adultsController.text),
               );
-              //TODO Calls FirebaseCalls().updateTrip() to update values to Firebase
-              //TODO Navigates to HomeScreen
               FirebaseCalls().updateTrip(tripDetails);
-              Navigator.pushNamed(context, '/home');
               // get region ID base on what user enter in controller 'ApiCalls().getRegionID()'
               // get fields and save it inside database
+              Navigator.pushReplacementNamed(context, '/home');
             },
           ),
         ],
