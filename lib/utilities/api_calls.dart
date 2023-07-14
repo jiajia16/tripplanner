@@ -52,7 +52,8 @@ class ApiCalls {
         headers: requestHeaders);
 
     if (response.statusCode == 200) {
-      List<dynamic> jsonList = jsonDecode(response.body) as List<dynamic>;
+      List<dynamic> jsonList =
+          jsonDecode(response.body)['properties'][0] as List<dynamic>;
       List<Hotel> hotel = jsonList.map((json) => Hotel.fromJson(json)).toList();
       return hotel;
     } else {
