@@ -37,7 +37,6 @@ class ApiCalls {
     //   used to fetch hotels in the region
     String baseURL =
         'https://hotels-com-provider.p.rapidapi.com/v2/hotels/search';
-
     Map<String, String> queryParams = {
       'domain': 'SG',
       'locale': 'en_SG',

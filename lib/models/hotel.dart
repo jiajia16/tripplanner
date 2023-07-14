@@ -18,7 +18,7 @@ class Hotel {
         id: json['id'],
         name: json['name'],
         propertyImage: json['propertyImage']['image']['url'],
-        price: json['price']['lead']['formatted']['formattedDisplayPrice'],
+        price: json['price']['lead']['formatted'],
         reviewScore: json['reviews']['score']);
   }
 

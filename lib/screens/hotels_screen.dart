@@ -20,9 +20,33 @@ class _HotelsScreenState extends State<HotelsScreen> {
         title: const Text('Hotels'),
       ),
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 1),
-      //TODO Display name of City
-      //TODO FutureBuilder to make fetchHotels API call and show list of hotels
-      //TODO Each hotel is displayed in ListTile and when tapped, navigate to HotelDetailScreen with hotel as argument
+      body: SafeArea(
+        child: FutureBuilder<List<Hotel>>(
+          future: ApiCalls().fetchHotels(tripDetails),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  Hotel hotel = snapshot.data![index];
+                  return ListTile(
+                    leading: Image.network(hotel.propertyImage),
+                    title: Text(hotel.name),
+                    subtitle: Text('Review Score ${hotel.reviewScore}'),
+                    trailing: Text(hotel.price),
+                  );
+                },
+              );
+            } else if (snapshot.hasError) {
+              return Text('${snapshot.error}');
+            }
+            return const CircularProgressIndicator();
+            //TODO Display name of City
+            //TODO FutureBuilder to make fetchHotels API call and show list of hotels
+            //TODO Each hotel is displayed in ListTile and when tapped, navigate to HotelDetailScreen with hotel as argument
+          },
+        ),
+      ),
     );
   }
 }
