@@ -41,9 +41,6 @@ class _HotelsScreenState extends State<HotelsScreen> {
               return Text('${snapshot.error}');
             }
             return const CircularProgressIndicator();
-            //TODO Display name of City
-            //TODO FutureBuilder to make fetchHotels API call and show list of hotels
-            //TODO Each hotel is displayed in ListTile and when tapped, navigate to HotelDetailScreen with hotel as argument
           },
         ),
       ),

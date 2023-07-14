@@ -77,8 +77,6 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                 adults: int.parse(adultsController.text),
               );
               FirebaseCalls().updateTrip(tripDetails);
-              // get region ID base on what user enter in controller 'ApiCalls().getRegionID()'
-              // get fields and save it inside database
               Navigator.pushReplacementNamed(context, '/home');
             },
           ),
