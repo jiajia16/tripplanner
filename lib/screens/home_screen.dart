@@ -18,6 +18,28 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Trip Planner'),
       ),
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 0),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            "Your next trip, ${auth.currentUser?.displayName}",
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            "${tripDetails.regionName} , ${tripDetails.country}",
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            "${tripDetails.checkIn} to ${tripDetails.checkOut}",
+            textAlign: TextAlign.center,
+          ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/hotels');
+              },
+              child: Text('SEARCH HOTELS'))
+        ],
+      ),
       //TODO widgets to show user name and logout button
       //TODO widgets to show trip details
       //TODO ElevatedButton to navigate to HotelsScreen
