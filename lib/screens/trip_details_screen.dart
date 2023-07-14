@@ -77,7 +77,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                 adults: int.parse(adultsController.text),
               );
               FirebaseCalls().updateTrip(tripDetails);
-              Navigator.pushNamed(context, '/home');
+              Navigator.pushReplacementNamed(context, '/home');
             },
           ),
         ],
