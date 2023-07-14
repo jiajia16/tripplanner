@@ -16,6 +16,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Trip Planner'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                auth.signOut();
+              },
+              icon: Icon(
+                Icons.logout,
+                color: Colors.white,
+              ))
+        ],
       ),
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 0),
       body: Column(
@@ -40,9 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text('SEARCH HOTELS'))
         ],
       ),
-      //TODO widgets to show user name and logout button
-      //TODO widgets to show trip details
-      //TODO ElevatedButton to navigate to HotelsScreen
     );
   }
 }
