@@ -34,8 +34,8 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          const Text(
-            'Where to next, Christabel?',
+          Text(
+            "Where to next, ${auth.currentUser?.displayName}",
             textAlign: TextAlign.left,
             style: TextStyle(color: Colors.black, fontSize: 15.0),
           ),

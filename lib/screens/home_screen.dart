@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 auth.signOut();
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.logout,
                 color: Colors.white,
               ))
