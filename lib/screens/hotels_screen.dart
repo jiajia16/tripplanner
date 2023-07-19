@@ -30,6 +30,10 @@ class _HotelsScreenState extends State<HotelsScreen> {
                 itemBuilder: (context, index) {
                   Hotel hotel = snapshot.data![index];
                   return ListTile(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/hotelDetail',
+                          arguments: hotel);
+                    },
                     leading: Image.network(hotel.propertyImage),
                     title: Text(hotel.name),
                     subtitle: Text('Review Score ${hotel.reviewScore}'),

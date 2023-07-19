@@ -17,8 +17,45 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> {
   @override
   Widget build(BuildContext context) {
     //TODO Read the received argument as Hotel
-
+    final Hotel hotel = ModalRoute.of(context)?.settings.arguments as Hotel;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(hotel.name),
+      ),
+      body: SafeArea(
+        child: FutureBuilder<HotelDetails>(
+          future: ApiCalls().fetchHotelDetails(hotel.id),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              HotelDetails hotelDetails = snapshot.data!;
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Image.network(hotel.propertyImage), // image
+                    Text(
+                        'Review Score: ${(hotel.reviewScore).toString()}'), // review score
+                    Text('Price : ${hotel.price}'), // amount price
+                    Text(
+                        'Rating: ${(hotelDetails.rating).toString()}'), // rating
+                    Text('Address: ${hotelDetails.address}'), // address
+                    Text(
+                        'Hotel Description: ${hotelDetails.whatsAround}'), // description
+                    Image.network(hotelDetails.mapUrl),
+                    ElevatedButton(
+                        onPressed: () {
+                          FirebaseCalls().addHotel(hotel);
+                        },
+                        child: Text('SAVE'))
+                  ],
+                ),
+              );
+            } else if (snapshot.hasError) {
+              return Text('${snapshot.error}');
+            }
+            return const CircularProgressIndicator();
+          },
+        ),
+      ),
       //TODO Show name of hotel in AppBar
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 1),
       //TODO Shows image of property, review score, price of hotel

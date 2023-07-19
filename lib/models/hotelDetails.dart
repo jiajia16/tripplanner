@@ -15,14 +15,19 @@ class HotelDetails {
     required this.mapUrl,
   });
   factory HotelDetails.fromJson(Map<String, dynamic> json) {
+    bool flag = false;
+    if (json['summary']['overview']['propertyRating'] == null) flag = true;
+
     return HotelDetails(
         id: json['summary']['id'],
         name: json['summary']['name'],
-        rating: json['summary']['overview']['propertyRating']['rating'],
+        rating: flag
+            ? 0.0
+            : json['summary']['overview']['propertyRating']['rating'],
         address: json['summary']['location']['address']['addressLine'],
         whatsAround: json['summary']['location']['whatsAround']['editorial']
             ['content'][0],
-        mapUrl: json['summary']['staticImage']['url']);
+        mapUrl: json['summary']['location']['staticImage']['url']);
   }
 
   //TODO implement HotelDetails.fromJson
