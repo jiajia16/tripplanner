@@ -44,6 +44,8 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> {
                     ElevatedButton(
                         onPressed: () {
                           FirebaseCalls().addHotel(hotel);
+                          Navigator.pushNamed(context, '/savedHotels',
+                              arguments: hotelDetails);
                         },
                         child: Text('SAVE'))
                   ],
@@ -56,11 +58,7 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> {
           },
         ),
       ),
-      //TODO Show name of hotel in AppBar
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 1),
-      //TODO Shows image of property, review score, price of hotel
-      //TODO Makes fetchHotelDetails API request
-      //TODO Display hotel detailed information such as rating, address, whatsAround, mapUrl, etc (refer to HotelDetails object)
       //TODO ElevatedButton – Calls FirebaseCalls().addHotel() to save hotel to savedHotels collection in Firebase
     );
   }
