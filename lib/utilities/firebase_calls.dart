@@ -88,7 +88,9 @@ class FirebaseCalls {
           'name': hotel.name,
           'propertyPrice': hotel.propertyImage,
           'price': hotel.price,
+          'propertyImage': hotel.propertyImage,
           'reviewScore': hotel.reviewScore,
+          'userid': auth.currentUser?.uid,
         })
         .then((value) => print("hotel added"))
         .catchError((error) => print("Failed to add task: $error"));
