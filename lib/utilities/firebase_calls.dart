@@ -86,7 +86,7 @@ class FirebaseCalls {
         .add({
           'id': hotel.id,
           'name': hotel.name,
-          'propertyPrice': hotel.propertyImage,
+          'propertyImage': hotel.propertyImage,
           'price': hotel.price,
           'propertyImage': hotel.propertyImage,
           'reviewScore': hotel.reviewScore,

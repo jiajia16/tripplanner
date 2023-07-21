@@ -31,6 +31,7 @@ class _HotelsScreenState extends State<SavedHotelsScreen> {
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 QueryDocumentSnapshot doc = snapshot.data!.docs[index];
+                print(doc);
                 Hotel hotel = Hotel(
                     id: doc['id'],
                     name: doc['name'],
