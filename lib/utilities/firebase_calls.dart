@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:tripplanner/models/hotelDetails.dart';
 
 import '../models/hotel.dart';
 import '../models/tripDetails.dart';
@@ -79,7 +81,16 @@ class FirebaseCalls {
     }
   }
 
-  void addHotel(Hotel hotel) {
-    //TODO Add hotel to savedHotelsCollection
+  Future<void> addHotel(Hotel hotel) async {
+    await savedHotelsCollection
+        .add({
+          'id': hotel.id,
+          'name': hotel.name,
+          'propertyPrice': hotel.propertyImage,
+          'price': hotel.price,
+          'reviewScore': hotel.reviewScore,
+        })
+        .then((value) => print("hotel added"))
+        .catchError((error) => print("Failed to add task: $error"));
   }
 }
