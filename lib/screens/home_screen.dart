@@ -14,8 +14,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.cyanAccent,
       appBar: AppBar(
-        title: const Text('Trip Planner'),
+        backgroundColor: Colors.cyanAccent,
+        title: const Text(
+          'Trip Planner',
+          style: TextStyle(color: Colors.black),
+        ),
         actions: [
           IconButton(
               onPressed: () {
@@ -23,32 +28,79 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               icon: const Icon(
                 Icons.logout,
-                color: Colors.white,
+                color: Colors.black,
               ))
         ],
       ),
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 0),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            "Your next trip, ${auth.currentUser?.displayName}",
-            textAlign: TextAlign.center,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("images/imgHomeScreen.png"), fit: BoxFit.cover),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(
+              top: 20.0, left: 20.0, right: 20.0, bottom: 200.0),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 50.0),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50.0),
+                  topRight: Radius.circular(50.0),
+                  bottomLeft: Radius.circular(50.0),
+                  bottomRight: Radius.circular(50.0)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ListTile(
+                  title: Text(
+                    "Your next trip, ${auth.currentUser?.displayName}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.location_on_sharp,
+                    color: Colors.cyanAccent,
+                  ),
+                  title: Text(
+                    "${tripDetails.regionName} , ${tripDetails.country}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.calendar_month_outlined,
+                      color: Colors.cyanAccent),
+                  title: Text(
+                    "${tripDetails.checkIn} to ${tripDetails.checkOut}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/hotels');
+                  },
+                  child: Text('SEARCH HOTELS'),
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.black,
+                      backgroundColor: Colors.cyanAccent,
+                      elevation: 15,
+                      side: BorderSide(color: Colors.black12, width: 2),
+                      fixedSize: Size(400, 40),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      )),
+                )
+              ],
+            ),
           ),
-          Text(
-            "${tripDetails.regionName} , ${tripDetails.country}",
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            "${tripDetails.checkIn} to ${tripDetails.checkOut}",
-            textAlign: TextAlign.center,
-          ),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/hotels');
-              },
-              child: Text('SEARCH HOTELS'))
-        ],
+        ),
       ),
     );
   }

@@ -28,59 +28,83 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Trip Details'),
+        title: const Text(
+          'Trip Details',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.cyanAccent,
       ),
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 2),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Text(
-            "Where to next, ${auth.currentUser?.displayName}",
-            textAlign: TextAlign.left,
-            style: TextStyle(color: Colors.black, fontSize: 15.0),
-          ),
-          TextField(
-            autofocus: true,
-            textAlign: TextAlign.center,
-            decoration: const InputDecoration(labelText: 'Destination'),
-            controller: regionController,
-          ),
-          TextField(
-            textAlign: TextAlign.center,
-            decoration:
-                const InputDecoration(labelText: 'Check-in Date (YYYY-MM-DD)'),
-            controller: checkInController,
-          ),
-          TextField(
-            textAlign: TextAlign.center,
-            decoration:
-                const InputDecoration(labelText: 'Check-out Date (YYYY-MM-DD)'),
-            controller: checkOutController,
-          ),
-          TextField(
-            textAlign: TextAlign.center,
-            decoration: const InputDecoration(labelText: 'No.of Adults'),
-            controller: adultsController,
-          ),
-          ElevatedButton(
-            //TODO Design UI
-            child: const Text('SAVE'),
-            onPressed: () async {
-              Region _region =
-                  await ApiCalls().getRegionId(regionController.text);
-              tripDetails = TripDetails(
-                regionId: _region.regionId,
-                regionName: _region.regionName,
-                country: _region.country,
-                checkIn: checkInController.text,
-                checkOut: checkOutController.text,
-                adults: int.parse(adultsController.text),
-              );
-              FirebaseCalls().updateTrip(tripDetails);
-              Navigator.pushReplacementNamed(context, '/home');
-            },
-          ),
-        ],
+      body: SizedBox(
+        width: 400,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Where to next, ${auth.currentUser?.displayName}",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black, fontSize: 15.0),
+            ),
+            TextFormField(
+              autofocus: true,
+              textAlign: TextAlign.center,
+              decoration: const InputDecoration(
+                icon: Icon(Icons.location_on_sharp),
+                labelText: 'Destination',
+              ),
+              controller: regionController,
+            ),
+            TextField(
+              textAlign: TextAlign.center,
+              decoration: const InputDecoration(
+                  labelText: 'Check-in Date (YYYY-MM-DD)',
+                  icon: Icon(Icons.calendar_month_outlined)),
+              controller: checkInController,
+            ),
+            TextField(
+              textAlign: TextAlign.center,
+              decoration: const InputDecoration(
+                  labelText: 'Check-out Date (YYYY-MM-DD)',
+                  icon: Icon(Icons.calendar_month_outlined)),
+              controller: checkOutController,
+            ),
+            TextField(
+              textAlign: TextAlign.center,
+              decoration: const InputDecoration(
+                  labelText: 'No.of Adults',
+                  icon: Icon(Icons.supervisor_account)),
+              controller: adultsController,
+            ),
+            ElevatedButton(
+              //TODO Design UI
+              child: const Text('SAVE'),
+              style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.cyanAccent,
+                  elevation: 15,
+                  side: BorderSide(color: Colors.black12, width: 2),
+                  fixedSize: Size(400, 40),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  )),
+              onPressed: () async {
+                Region _region =
+                    await ApiCalls().getRegionId(regionController.text);
+                tripDetails = TripDetails(
+                  regionId: _region.regionId,
+                  regionName: _region.regionName,
+                  country: _region.country,
+                  checkIn: checkInController.text,
+                  checkOut: checkOutController.text,
+                  adults: int.parse(adultsController.text),
+                );
+                FirebaseCalls().updateTrip(tripDetails);
+                Navigator.pushReplacementNamed(context, '/home');
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
