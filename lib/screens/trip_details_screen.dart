@@ -35,77 +35,133 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
         backgroundColor: Colors.cyanAccent,
       ),
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 2),
-      body: SizedBox(
-        width: 400,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "Where to next, ${auth.currentUser?.displayName}",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black, fontSize: 15.0),
-            ),
-            TextFormField(
-              autofocus: true,
-              textAlign: TextAlign.center,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.location_on_sharp),
-                labelText: 'Destination',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              SizedBox(height: 50),
+              Text(
+                "Where to next, ${auth.currentUser?.displayName}",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black, fontSize: 18.0),
               ),
-              controller: regionController,
+              SizedBox(height: 20),
+              TextFormField(
+                autofocus: true,
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.location_on_sharp),
+                  labelText: 'Destination',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                controller: regionController,
+              ),
+              SizedBox(height: 20),
+              buildDateField(
+                label: 'Check-in Date',
+                controller: checkInController,
+                icon: Icons.calendar_today,
+              ),
+              SizedBox(height: 20),
+              buildDateField(
+                label: 'Check-out Date',
+                controller: checkOutController,
+                icon: Icons.calendar_today,
+              ),
+              SizedBox(height: 20),
+              TextFormField(
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.supervisor_account),
+                  labelText: 'No. of Adults',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                keyboardType: TextInputType.number,
+                controller: adultsController,
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                //TODO Design UI
+                onPressed: () async {
+                  Region _region =
+                      await ApiCalls().getRegionId(regionController.text);
+                  tripDetails = TripDetails(
+                    regionId: _region.regionId,
+                    regionName: _region.regionName,
+                    country: _region.country,
+                    checkIn: checkInController.text,
+                    checkOut: checkOutController.text,
+                    adults: int.parse(adultsController.text),
+                  );
+                  FirebaseCalls().updateTrip(tripDetails);
+                  Navigator.pushReplacementNamed(context, '/home');
+                },
+                child: const Text('SAVE'),
+                style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.cyanAccent,
+                    elevation: 15,
+                    side: BorderSide(color: Colors.black12, width: 2),
+                    fixedSize: Size(400, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    )),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildDateField({
+    required String label,
+    required TextEditingController controller,
+    required IconData icon,
+  }) {
+    return InkWell(
+      onTap: () => _selectDate(context, controller),
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              controller.text.isNotEmpty
+                  ? '$label: ${controller.text}'
+                  : 'Select $label',
             ),
-            TextField(
-              textAlign: TextAlign.center,
-              decoration: const InputDecoration(
-                  labelText: 'Check-in Date (YYYY-MM-DD)',
-                  icon: Icon(Icons.calendar_month_outlined)),
-              controller: checkInController,
-            ),
-            TextField(
-              textAlign: TextAlign.center,
-              decoration: const InputDecoration(
-                  labelText: 'Check-out Date (YYYY-MM-DD)',
-                  icon: Icon(Icons.calendar_month_outlined)),
-              controller: checkOutController,
-            ),
-            TextField(
-              textAlign: TextAlign.center,
-              decoration: const InputDecoration(
-                  labelText: 'No.of Adults',
-                  icon: Icon(Icons.supervisor_account)),
-              controller: adultsController,
-            ),
-            ElevatedButton(
-              //TODO Design UI
-              child: const Text('SAVE'),
-              style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.cyanAccent,
-                  elevation: 15,
-                  side: BorderSide(color: Colors.black12, width: 2),
-                  fixedSize: Size(400, 40),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  )),
-              onPressed: () async {
-                Region _region =
-                    await ApiCalls().getRegionId(regionController.text);
-                tripDetails = TripDetails(
-                  regionId: _region.regionId,
-                  regionName: _region.regionName,
-                  country: _region.country,
-                  checkIn: checkInController.text,
-                  checkOut: checkOutController.text,
-                  adults: int.parse(adultsController.text),
-                );
-                FirebaseCalls().updateTrip(tripDetails);
-                Navigator.pushReplacementNamed(context, '/home');
-              },
-            ),
+            Icon(icon),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _selectDate(
+      BuildContext context, TextEditingController controller) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: controller.text.isNotEmpty
+          ? DateTime.parse(controller.text)
+          : DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(DateTime.now().year + 1),
+    );
+
+    if (picked != null) {
+      controller.text = picked.toString().split(' ')[0];
+    }
   }
 }

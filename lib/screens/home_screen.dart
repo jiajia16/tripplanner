@@ -34,13 +34,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 0),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage("images/imgHomeScreen.png"), fit: BoxFit.cover),
         ),
         child: Padding(
           padding: const EdgeInsets.only(
-              top: 20.0, left: 20.0, right: 20.0, bottom: 200.0),
+              top: 130.0, left: 20.0, right: 20.0, bottom: 140.0),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 50.0),
             decoration: const BoxDecoration(
@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: Text(
                     "Your next trip, ${auth.currentUser?.displayName}",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 15),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   ),
                 ),
                 ListTile(
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       backgroundColor: Colors.cyanAccent,
                       elevation: 15,
                       side: BorderSide(color: Colors.black12, width: 2),
-                      fixedSize: Size(400, 40),
+                      fixedSize: Size(300, 40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       )),
