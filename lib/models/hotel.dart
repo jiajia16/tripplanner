@@ -15,11 +15,12 @@ class Hotel {
 
   factory Hotel.fromJson(Map<String, dynamic> json) {
     return Hotel(
-        id: json['id'],
-        name: json['name'],
-        propertyImage: json['propertyImage']['image']['url'],
-        price: json['price']['lead']['formatted'],
-        reviewScore: json['reviews']['score']);
+      id: json['id'],
+      name: json['name'],
+      propertyImage: json['propertyImage']['image']['url'],
+      price: json['price']['lead']['formatted'],
+      reviewScore: json['reviews']['score'],
+    );
   }
 
   //TODO implement Hotel.fromJson

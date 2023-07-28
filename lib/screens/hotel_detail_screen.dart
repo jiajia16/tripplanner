@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tripplanner/models/hotelDetails.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 import '../utilities/api_calls.dart';
 import '../utilities/firebase_calls.dart';
@@ -30,17 +31,96 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> {
               HotelDetails hotelDetails = snapshot.data!;
               return SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Image.network(hotel.propertyImage), // image
+                    ImageSlideshow(
+                      width: double.infinity,
+                      height: 300,
+                      initialPage: 0,
+                      indicatorColor: Colors.cyan,
+                      indicatorBackgroundColor: Colors.white,
+                      autoPlayInterval: 3000,
+                      isLoop: true,
+                      children: [
+                        Image.network(
+                          hotel.propertyImage,
+                          fit: BoxFit.cover,
+                        ),
+                        Image.network(
+                          hotelDetails.propertyImageTwo,
+                          fit: BoxFit.cover,
+                        ),
+                        Image.network(
+                          hotelDetails.propertyImageThree,
+                          fit: BoxFit.cover,
+                        ),
+                        Image.network(
+                          hotelDetails.propertyImageFour,
+                          fit: BoxFit.cover,
+                        ),
+                        Image.network(
+                          hotelDetails.propertyImageFive,
+                          fit: BoxFit.cover,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Text(
+                          '${hotelDetails.tagline}',
+                          style: TextStyle(fontSize: 17),
+                        ),
+                        Container(
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: Colors.orangeAccent,
+                              ),
+                              SizedBox(
+                                width: 3,
+                              ),
+                              Text(
+                                '${(hotel.reviewScore).toString()}',
+                                style: TextStyle(
+                                    color: Colors.orangeAccent, fontSize: 16),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Icon(
+                          Icons.location_on_sharp,
+                          size: 20,
+                          color: Colors.cyan,
+                        ),
+                        const SizedBox(width: 5),
+                        Text('${hotelDetails.address}'),
+                      ],
+                    ),
                     Text(
-                        'Review Score: ${(hotel.reviewScore).toString()}'), // review score
-                    Text('Price : ${hotel.price}'), // amount price
+                      'Price : ${hotel.price}',
+                      style: TextStyle(fontSize: 15),
+                    ), // amount price
                     Text(
-                        'Rating: ${(hotelDetails.rating).toString()}'), // rating
-                    Text('Address: ${hotelDetails.address}'), // address
+                      'Rating: ${(hotelDetails.rating).toString()}',
+                      style: TextStyle(fontSize: 15),
+                    ),
+
                     Text(
-                        'Hotel Description: ${hotelDetails.whatsAround}'), // description
-                    Image.network(hotelDetails.mapUrl),
+                      'DETAILS',
+                      textAlign: TextAlign.left,
+                    ),
+                    Text('${hotelDetails.whatsAround}'), // description
+                    Image.network(
+                      hotelDetails.mapUrl,
+                    ),
                     ElevatedButton(
                         onPressed: () {
                           FirebaseCalls().addHotel(hotel);
