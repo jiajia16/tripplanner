@@ -17,6 +17,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.purpleAccent,
         title: const Text('Hotels'),
       ),
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 1),
@@ -36,7 +37,16 @@ class _HotelsScreenState extends State<HotelsScreen> {
                     },
                     leading: Image.network(hotel.propertyImage),
                     title: Text(hotel.name),
-                    subtitle: Text('Review Score ${hotel.reviewScore}'),
+                    subtitle: Row(
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: Colors.purple,
+                          size: 18,
+                        ),
+                        Text('${hotel.reviewScore}'),
+                      ],
+                    ),
                     trailing: Text(hotel.price),
                   );
                 },

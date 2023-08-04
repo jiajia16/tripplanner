@@ -16,10 +16,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.cyanAccent,
       appBar: AppBar(
-        backgroundColor: Colors.cyanAccent,
+        backgroundColor: Colors.purpleAccent,
         title: const Text(
           'Trip Planner',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         actions: [
           IconButton(
@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               icon: const Icon(
                 Icons.logout,
-                color: Colors.black,
+                color: Colors.white,
               ))
         ],
       ),
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ListTile(
                   leading: const Icon(
                     Icons.location_on_sharp,
-                    color: Colors.cyanAccent,
+                    color: Colors.purpleAccent,
                   ),
                   title: Text(
                     "${tripDetails.regionName} , ${tripDetails.country}",
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.calendar_month_outlined,
-                      color: Colors.cyanAccent),
+                      color: Colors.purpleAccent),
                   title: Text(
                     "${tripDetails.checkIn} to ${tripDetails.checkOut}",
                     textAlign: TextAlign.center,
@@ -89,14 +89,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text('SEARCH HOTELS'),
                   style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
-                      backgroundColor: Colors.cyanAccent,
+                      backgroundColor: Colors.purpleAccent,
                       elevation: 15,
-                      side: BorderSide(color: Colors.black12, width: 2),
+                      side: BorderSide(color: Colors.white, width: 2),
                       fixedSize: Size(300, 40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       )),
-                )
+                ),
               ],
             ),
           ),

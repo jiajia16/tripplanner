@@ -21,6 +21,7 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> {
     final Hotel hotel = ModalRoute.of(context)?.settings.arguments as Hotel;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.purpleAccent,
         title: Text(hotel.name),
       ),
       body: SafeArea(
@@ -29,104 +30,165 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               HotelDetails hotelDetails = snapshot.data!;
-              return SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ImageSlideshow(
-                      width: double.infinity,
-                      height: 300,
-                      initialPage: 0,
-                      indicatorColor: Colors.cyan,
-                      indicatorBackgroundColor: Colors.white,
-                      autoPlayInterval: 3000,
-                      isLoop: true,
-                      children: [
-                        Image.network(
-                          hotel.propertyImage,
-                          fit: BoxFit.cover,
+              return Container(
+                margin: EdgeInsets.all(16),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ImageSlideshow(
+                        width: double.infinity,
+                        height: 300,
+                        initialPage: 0,
+                        indicatorColor: Colors.cyan,
+                        indicatorBackgroundColor: Colors.white,
+                        autoPlayInterval: 3000,
+                        isLoop: true,
+                        children: [
+                          Image.network(
+                            hotel.propertyImage,
+                            fit: BoxFit.cover,
+                          ),
+                          Image.network(
+                            hotelDetails.propertyImageTwo,
+                            fit: BoxFit.cover,
+                          ),
+                          Image.network(
+                            hotelDetails.propertyImageThree,
+                            fit: BoxFit.cover,
+                          ),
+                          Image.network(
+                            hotelDetails.propertyImageFour,
+                            fit: BoxFit.cover,
+                          ),
+                          Image.network(
+                            hotelDetails.propertyImageFive,
+                            fit: BoxFit.cover,
+                          ),
+                        ],
+                      ),
+                      ClipRect(
+                        child: Container(
+                          child: Column(
+                            children: [],
+                          ),
                         ),
-                        Image.network(
-                          hotelDetails.propertyImageTwo,
-                          fit: BoxFit.cover,
-                        ),
-                        Image.network(
-                          hotelDetails.propertyImageThree,
-                          fit: BoxFit.cover,
-                        ),
-                        Image.network(
-                          hotelDetails.propertyImageFour,
-                          fit: BoxFit.cover,
-                        ),
-                        Image.network(
-                          hotelDetails.propertyImageFive,
-                          fit: BoxFit.cover,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Text(
-                          '${hotelDetails.tagline}',
-                          style: TextStyle(fontSize: 17),
-                        ),
-                        Container(
-                          child: Row(
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Expanded(
+                            child: Text(
+                              '${hotelDetails.tagline}',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          Column(
                             children: [
-                              Icon(
-                                Icons.star,
-                                color: Colors.orangeAccent,
-                              ),
-                              SizedBox(
-                                width: 3,
+                              Text(
+                                '${hotel.price}',
+                                style: TextStyle(
+                                  fontSize: 23,
+                                  color: Colors.purple,
+                                ),
                               ),
                               Text(
-                                '${(hotel.reviewScore).toString()}',
-                                style: TextStyle(
-                                    color: Colors.orangeAccent, fontSize: 16),
-                              )
+                                'total price',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(fontSize: 12),
+                              ),
                             ],
                           ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Icon(
-                          Icons.location_on_sharp,
-                          size: 20,
-                          color: Colors.cyan,
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.rate_review_sharp,
+                            color: Colors.purple,
+                          ),
+                          Text(
+                            ' Rating ${(hotelDetails.rating).toString()}',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'DESCRIPTION',
+                        textAlign: TextAlign.left,
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text('${hotelDetails.whatsAround}'),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          const Icon(
+                            Icons.location_on_sharp,
+                            size: 20,
+                            color: Colors.purple,
+                          ),
+                          const SizedBox(width: 5),
+                          Expanded(child: Text('${hotelDetails.address}')),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            border:
+                                Border.all(color: Colors.transparent, width: 2),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                              8), // Adjust the radius as needed
+                          child: Image.network(
+                            hotelDetails.mapUrl,
+                            width: 400, // Set the desired width of the image
+                            height: 100, // Set the desired height of the image
+                            fit: BoxFit
+                                .cover, // Adjust the fit to your preference
+                          ),
                         ),
-                        const SizedBox(width: 5),
-                        Text('${hotelDetails.address}'),
-                      ],
-                    ),
-                    Text(
-                      'Price : ${hotel.price}',
-                      style: TextStyle(fontSize: 15),
-                    ), // amount price
-                    Text(
-                      'Rating: ${(hotelDetails.rating).toString()}',
-                      style: TextStyle(fontSize: 15),
-                    ),
-
-                    Text(
-                      'DETAILS',
-                      textAlign: TextAlign.left,
-                    ),
-                    Text('${hotelDetails.whatsAround}'), // description
-                    Image.network(
-                      hotelDetails.mapUrl,
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          FirebaseCalls().addHotel(hotel);
-                        },
-                        child: Text('SAVE'))
-                  ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              FirebaseCalls().addHotel(hotel);
+                            },
+                            child: Text('SAVE'),
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.purple,
+                              shadowColor: Colors.cyan,
+                              side: BorderSide(color: Colors.white, width: 2),
+                              shape: StadiumBorder(),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               );
             } else if (snapshot.hasError) {
