@@ -45,6 +45,8 @@ dependencies:
   firebase_auth: ^4.6.3
   flutterfire_ui: ^0.4.3+20
   cloud_firestore: ^4.8.1
+  google_maps_flutter: ^2.4.0
+  permission_handler: ^10.4.3
 
 dev_dependencies:
   flutter_test:

@@ -17,6 +17,7 @@ class _HotelsScreenState extends State<SavedHotelsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.purpleAccent,
         title: const Text('Saved Hotels'),
       ),
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 1),
@@ -40,7 +41,7 @@ class _HotelsScreenState extends State<SavedHotelsScreen> {
                     reviewScore: doc['reviewScore']);
                 return ListTile(
                   onTap: () {
-                    Navigator.pushNamed(context, '/savedHotels',
+                    Navigator.pushNamed(context, '/hotelDetail',
                         arguments: hotel);
                   },
                   leading: Image.network(doc['propertyImage']),
