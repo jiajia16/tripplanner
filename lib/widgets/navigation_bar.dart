@@ -23,6 +23,8 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         case 2:
           Navigator.pushReplacementNamed(context, '/tripDetails');
           break;
+        case 3:
+          Navigator.pushReplacementNamed(context, '/nearbyPlaces');
       }
     });
   }
@@ -38,15 +40,30 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         ),
         BottomNavigationBarItem(
           label: 'Saved Hotels',
-          icon: Icon(Icons.hotel),
+          icon: Icon(
+            Icons.hotel,
+          ),
         ),
         BottomNavigationBarItem(
           label: 'Trip Details',
-          icon: Icon(Icons.luggage),
+          icon: Icon(
+            Icons.luggage,
+          ),
+        ),
+        BottomNavigationBarItem(
+          label: 'Nearby Places',
+          icon: Icon(
+            Icons.near_me_rounded,
+          ),
         ),
       ],
       currentIndex: widget.selectedIndexNavBar,
       onTap: _onTap,
+      selectedItemColor:
+          Colors.purpleAccent, // Set the color for the selected item
+      unselectedItemColor: Colors.black, // Set the color for unselected items
+      showUnselectedLabels: true, // To show labels for unselected items
+      type: BottomNavigationBarType.fixed,
     );
   }
 }
