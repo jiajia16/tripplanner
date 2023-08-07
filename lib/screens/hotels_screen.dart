@@ -92,8 +92,8 @@ class _HotelsScreenState extends State<HotelsScreen> {
                       children: [
                         TabBar(
                           tabs: [
+                            Tab(text: 'Featured'),
                             Tab(text: 'All'),
-                            Tab(text: 'Liked'),
                           ],
                         ),
                         Expanded(
