@@ -26,7 +26,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
-        backgroundColor: Colors.cyanAccent,
+        backgroundColor: Colors.purpleAccent,
         title: const Text(
           'Hotels',
           style: TextStyle(color: Colors.black),
