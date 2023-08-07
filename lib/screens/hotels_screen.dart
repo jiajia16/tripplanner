@@ -21,6 +21,36 @@ final List<String> hotels = <String>[
 ];
 
 class _HotelsScreenState extends State<HotelsScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  List<Hotel> _filteredHotels = [];
+  List<Hotel> _allHotels = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchHotels();
+  }
+
+  void _fetchHotels() async {
+    List<Hotel> hotels = await ApiCalls().fetchHotels(tripDetails);
+    setState(() {
+      _allHotels = hotels;
+      _filteredHotels = hotels;
+    });
+  }
+
+  void _filterHotels(String query) {
+    List<Hotel> filteredList = [];
+    for (var hotel in _allHotels) {
+      if (hotel.name.toLowerCase().contains(query.toLowerCase())) {
+        filteredList.add(hotel);
+      }
+    }
+    setState(() {
+      _filteredHotels = filteredList;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,16 +64,28 @@ class _HotelsScreenState extends State<HotelsScreen> {
       ),
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 1),
       body: SafeArea(
-        child: FutureBuilder<List<Hotel>>(
-          future: ApiCalls().fetchHotels(tripDetails),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _searchController,
+                onChanged: _filterHotels,
+                decoration: InputDecoration(
+                  hintText: 'Search hotels...',
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
                 padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
-                itemCount: snapshot.data!.length,
+                itemCount: _filteredHotels.length,
                 itemBuilder: (BuildContext context, int index) {
-                  Hotel hotel = snapshot.data![index];
-
+                  Hotel hotel = _filteredHotels[index];
                   return Stack(
                     children: <Widget>[
                       GestureDetector(
@@ -116,12 +158,9 @@ class _HotelsScreenState extends State<HotelsScreen> {
                     ],
                   );
                 },
-              );
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
-            return const CircularProgressIndicator();
-          },
+              ),
+            ),
+          ],
         ),
       ),
     );
