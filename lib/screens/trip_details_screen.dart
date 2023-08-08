@@ -30,9 +30,10 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
       appBar: AppBar(
         title: const Text(
           'Trip Details',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.cyanAccent,
+        backgroundColor: Colors.purpleAccent,
+        centerTitle: true,
       ),
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 2),
       body: SingleChildScrollView(
@@ -105,8 +106,8 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                 },
                 child: const Text('SAVE'),
                 style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.cyanAccent,
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.purpleAccent,
                     elevation: 15,
                     side: BorderSide(color: Colors.black12, width: 2),
                     fixedSize: Size(400, 40),

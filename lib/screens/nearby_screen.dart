@@ -49,14 +49,7 @@ class _NearbyScreenState extends State<NearbyScreen> {
 
   void getNearbyPlaces() async {
     var url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' +
-            latitude.toString() +
-            ',' +
-            longtitude.toString() +
-            '&radius=' +
-            radius +
-            '&key=' +
-            apiKey);
+        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$latitude,$longtitude&radius=$radius&key=$apiKey');
 
     var response = await http.post(url);
 
@@ -70,18 +63,24 @@ class _NearbyScreenState extends State<NearbyScreen> {
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.purpleAccent),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         children: [
-          Text('Name:' + results.name!),
-          Text('Location' +
+          Text('Name of place: ' + results.name!),
+          SizedBox(
+            height: 5,
+          ),
+          Text('Location: ' +
               results.geometry!.location!.lat.toString() +
               "," +
               results.geometry!.location!.lng.toString()),
+          SizedBox(
+            height: 5,
+          ),
           Text(results.openingHours != null ? 'Open' : "Closed"),
         ],
       ),
