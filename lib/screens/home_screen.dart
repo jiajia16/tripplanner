@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Text('SEARCH HOTELS'),
                   style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black,
+                      foregroundColor: Colors.white,
                       backgroundColor: Colors.purpleAccent,
                       elevation: 15,
                       side: BorderSide(color: Colors.white, width: 2),

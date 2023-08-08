@@ -92,7 +92,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
                       children: [
                         TabBar(
                           tabs: [
-                            Tab(text: 'Featured'),
+                            Tab(text: 'All'),
                             Tab(text: 'All'),
                           ],
                         ),
@@ -101,6 +101,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
                             physics: NeverScrollableScrollPhysics(),
                             children: [
                               ListView.builder(
+                                scrollDirection: Axis.horizontal,
                                 padding:
                                     EdgeInsets.only(top: 10.0, bottom: 15.0),
                                 itemCount: _filteredHotels.length,
@@ -138,7 +139,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  Icon(
+                                                  const Icon(
                                                     Icons.star,
                                                     color: Color(0xFFFE8C68),
                                                   ),
@@ -152,19 +153,21 @@ class _HotelsScreenState extends State<HotelsScreen> {
                                                       children: [
                                                         Text(
                                                           hotel.name,
-                                                          style: TextStyle(
+                                                          style:
+                                                              const TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 20.0,
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                           ),
                                                         ),
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           height: 6.0,
                                                         ),
                                                         Text(
                                                           '\$${hotel.price}',
-                                                          style: TextStyle(
+                                                          style:
+                                                              const TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 18.0,
                                                             fontWeight:
@@ -173,7 +176,8 @@ class _HotelsScreenState extends State<HotelsScreen> {
                                                         ),
                                                         Text(
                                                           'Review Score ${hotel.reviewScore}',
-                                                          style: TextStyle(
+                                                          style:
+                                                              const TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 18.0,
                                                             fontWeight:
@@ -196,6 +200,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
                             ],
                           ),
                         ),
+                        Text("Hello tabs")
                       ],
                     ),
                   ),
