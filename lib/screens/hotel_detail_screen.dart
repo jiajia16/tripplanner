@@ -105,12 +105,12 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.rate_review_sharp,
                             color: Colors.purple,
                           ),
@@ -120,7 +120,7 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       const Text(

@@ -82,6 +82,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(fontSize: 15),
                   ),
                 ),
+                ListTile(
+                  leading: Icon(Icons.people_alt, color: Colors.purpleAccent),
+                  title: Text(
+                    "Number of adults: ${tripDetails.adults}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/hotels');

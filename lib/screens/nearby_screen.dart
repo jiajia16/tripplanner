@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:tripplanner/models/nearby_response.dart';
-import 'package:tripplanner/screens/nearby_places_screen.dart';
 
 class NearbyScreen extends StatefulWidget {
   const NearbyScreen({Key? key}) : super(key: key);
@@ -27,6 +26,7 @@ class _NearbyScreenState extends State<NearbyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.purpleAccent,
         title: Text('Nearby Places'),
         centerTitle: true,
       ),
@@ -34,10 +34,18 @@ class _NearbyScreenState extends State<NearbyScreen> {
         child: Column(
           children: [
             ElevatedButton(
-                onPressed: () {
-                  getNearbyPlaces();
-                },
-                child: Text('Get Nearby Places')),
+              onPressed: () {
+                getNearbyPlaces();
+              },
+              child: Text('Get Nearby Places'),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.purpleAccent,
+                shadowColor: Colors.cyan,
+                side: BorderSide(color: Colors.white, width: 2),
+                shape: StadiumBorder(),
+              ),
+            ),
             if (nearByPlacesResponse.results != null)
               for (int i = 0; i < nearByPlacesResponse.results!.length; i++)
                 nearbyPlacesWidget(nearByPlacesResponse.results![i])
