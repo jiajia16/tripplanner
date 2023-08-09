@@ -51,14 +51,28 @@ class _HotelsScreenState extends State<HotelsScreen> {
     });
   }
 
+// Define a set to store saved hotels
+  Set<Hotel> _savedHotels = Set<Hotel>();
+
+  // Save or unsave a hotel
+  void _saveHotel(Hotel hotel) {
+    setState(() {
+      if (_savedHotels.contains(hotel)) {
+        _savedHotels.remove(hotel);
+      } else {
+        _savedHotels.add(hotel);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.purpleAccent,
         title: const Text(
-          'Hotels',
+          'Explore Hotels',
           style: TextStyle(color: Colors.black),
         ),
       ),
@@ -91,8 +105,9 @@ class _HotelsScreenState extends State<HotelsScreen> {
                     child: Column(
                       children: [
                         TabBar(
+                          labelColor: Colors.black,
+                          unselectedLabelColor: Colors.grey,
                           tabs: [
-                            Tab(text: 'All'),
                             Tab(text: 'All'),
                           ],
                         ),
@@ -107,6 +122,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
                                 itemCount: _filteredHotels.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   Hotel hotel = _filteredHotels[index];
+
                                   return Card(
                                     margin: EdgeInsets.only(right: 22.0),
                                     clipBehavior: Clip.antiAlias,
@@ -151,15 +167,35 @@ class _HotelsScreenState extends State<HotelsScreen> {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
-                                                          hotel.name,
-                                                          style:
-                                                              const TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 20.0,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
+                                                        Row(
+                                                          children: [
+                                                            GestureDetector(
+                                                              onLongPress: () {
+                                                                _savedHotels;
+                                                              },
+                                                              child: Icon(
+                                                                Icons.favorite,
+                                                                color: _savedHotels
+                                                                        .contains(
+                                                                            hotel)
+                                                                    ? Colors.red
+                                                                    : Colors
+                                                                        .grey,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              hotel.name,
+                                                              style:
+                                                                  const TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 20.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                         const SizedBox(
                                                           height: 6.0,
@@ -200,7 +236,6 @@ class _HotelsScreenState extends State<HotelsScreen> {
                             ],
                           ),
                         ),
-                        Text("Hello tabs")
                       ],
                     ),
                   ),

@@ -20,6 +20,7 @@ class _HotelsScreenState extends State<SavedHotelsScreen> {
         backgroundColor: Colors.purpleAccent,
         title: const Text('Saved Hotels'),
       ),
+
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 1),
 
       body: StreamBuilder<QuerySnapshot>(

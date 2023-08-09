@@ -4,6 +4,8 @@ class Hotel {
   final String propertyImage;
   final String price;
   final num reviewScore;
+  bool isFavorite;
+  int favoriteCount;
 
   Hotel({
     required this.id,
@@ -11,6 +13,8 @@ class Hotel {
     required this.propertyImage,
     required this.price,
     required this.reviewScore,
+    this.isFavorite = false,
+    this.favoriteCount = 0,
   });
 
   factory Hotel.fromJson(Map<String, dynamic> json) {
