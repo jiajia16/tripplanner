@@ -104,7 +104,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
                     length: 2,
                     child: Column(
                       children: [
-                        TabBar(
+                        const TabBar(
                           labelColor: Colors.black,
                           unselectedLabelColor: Colors.grey,
                           tabs: [

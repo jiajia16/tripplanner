@@ -36,86 +36,108 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
         centerTitle: true,
       ),
       bottomNavigationBar: MyBottomNavigationBar(selectedIndexNavBar: 2),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              SizedBox(height: 50),
-              Text(
-                "Where to next, ${auth.currentUser?.displayName}",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black, fontSize: 18.0),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("images/japan.jpg"), fit: BoxFit.cover),
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(
+                top: 50.0, left: 20.0, right: 20.0, bottom: 140.0),
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.black12,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50.0),
+                    topRight: Radius.circular(50.0),
+                    bottomLeft: Radius.circular(50.0),
+                    bottomRight: Radius.circular(50.0)),
               ),
-              SizedBox(height: 20),
-              TextFormField(
-                autofocus: true,
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.location_on_sharp),
-                  labelText: 'Destination',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    SizedBox(height: 20),
+                    Text(
+                      "Where to next, ${auth.currentUser?.displayName}",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.black, fontSize: 18.0),
+                    ),
+                    SizedBox(height: 20),
+                    TextFormField(
+                      autofocus: true,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.location_on_sharp),
+                        labelText: 'Destination',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      controller: regionController,
+                    ),
+                    SizedBox(height: 20),
+                    buildDateField(
+                      label: 'Check-in Date',
+                      controller: checkInController,
+                      icon: Icons.calendar_today,
+                    ),
+                    SizedBox(height: 20),
+                    buildDateField(
+                      label: 'Check-out Date',
+                      controller: checkOutController,
+                      icon: Icons.calendar_today,
+                    ),
+                    SizedBox(height: 20),
+                    TextFormField(
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.supervisor_account),
+                        labelText: 'No. of Adults',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      keyboardType: TextInputType.number,
+                      controller: adultsController,
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () async {
+                        Region _region =
+                            await ApiCalls().getRegionId(regionController.text);
+                        tripDetails = TripDetails(
+                          regionId: _region.regionId,
+                          regionName: _region.regionName,
+                          country: _region.country,
+                          checkIn: checkInController.text,
+                          checkOut: checkOutController.text,
+                          adults: int.parse(adultsController.text),
+                        );
+                        FirebaseCalls().updateTrip(tripDetails);
+                        Navigator.pushReplacementNamed(context, '/home');
+                      },
+                      child: const Text('SAVE'),
+                      style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.purpleAccent,
+                          elevation: 15,
+                          side: BorderSide(color: Colors.white, width: 2),
+                          fixedSize: Size(300, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          )),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    )
+                  ],
                 ),
-                controller: regionController,
               ),
-              SizedBox(height: 20),
-              buildDateField(
-                label: 'Check-in Date',
-                controller: checkInController,
-                icon: Icons.calendar_today,
-              ),
-              SizedBox(height: 20),
-              buildDateField(
-                label: 'Check-out Date',
-                controller: checkOutController,
-                icon: Icons.calendar_today,
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.supervisor_account),
-                  labelText: 'No. of Adults',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                keyboardType: TextInputType.number,
-                controller: adultsController,
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                //TODO Design UI
-                onPressed: () async {
-                  Region _region =
-                      await ApiCalls().getRegionId(regionController.text);
-                  tripDetails = TripDetails(
-                    regionId: _region.regionId,
-                    regionName: _region.regionName,
-                    country: _region.country,
-                    checkIn: checkInController.text,
-                    checkOut: checkOutController.text,
-                    adults: int.parse(adultsController.text),
-                  );
-                  FirebaseCalls().updateTrip(tripDetails);
-                  Navigator.pushReplacementNamed(context, '/home');
-                },
-                child: const Text('SAVE'),
-                style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.purpleAccent,
-                    elevation: 15,
-                    side: BorderSide(color: Colors.black12, width: 2),
-                    fixedSize: Size(400, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
-              ),
-            ],
+            ),
           ),
         ),
       ),
