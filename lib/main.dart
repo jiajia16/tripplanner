@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tripplanner/screens/nearby_places_screen.dart';
+import 'package:tripplanner/screens/splashone_screen.dart';
 import 'firebase_options.dart';
 
 import '../screens/login_screen.dart';
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const LoginScreen(),
+        '/': (context) => const SplashOneScreen(),
+        '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
         '/tripDetails': (context) => const TripDetailsScreen(),
         '/hotels': (context) => const HotelsScreen(),

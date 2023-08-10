@@ -16,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.cyanAccent,
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.purpleAccent,
         title: const Text(
           'Trip Planner',
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
               onPressed: () {
                 auth.signOut();
+                Navigator.pushNamed(context, '/');
               },
               icon: const Icon(
                 Icons.logout,
@@ -44,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 50.0),
             decoration: const BoxDecoration(
-              color: Colors.white,
+              color: Colors.white70,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(50.0),
                   topRight: Radius.circular(50.0),

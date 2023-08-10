@@ -17,6 +17,7 @@ class _HotelsScreenState extends State<SavedHotelsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.purpleAccent,
         title: const Text('Saved Hotels'),
       ),
@@ -47,7 +48,7 @@ class _HotelsScreenState extends State<SavedHotelsScreen> {
                   },
                   child: Padding(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
                     child: Container(
                       margin: EdgeInsets.only(top: 10),
                       decoration: BoxDecoration(
@@ -59,7 +60,7 @@ class _HotelsScreenState extends State<SavedHotelsScreen> {
                         children: [
                           Flexible(
                             child: ClipRRect(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(20),
                                 bottomLeft: Radius.circular(20),
                               ),

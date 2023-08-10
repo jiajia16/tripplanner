@@ -47,7 +47,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                 top: 50.0, left: 20.0, right: 20.0, bottom: 140.0),
             child: Container(
               decoration: const BoxDecoration(
-                color: Colors.black12,
+                color: Colors.white70,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50.0),
                     topRight: Radius.circular(50.0),
@@ -60,18 +60,24 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
                       "Where to next, ${auth.currentUser?.displayName}",
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black, fontSize: 18.0),
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
                       autofocus: true,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.location_on_sharp),
+                        prefixIcon: const Icon(
+                          Icons.location_on_sharp,
+                          color: Colors.black,
+                        ),
                         labelText: 'Destination',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -79,23 +85,26 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                       ),
                       controller: regionController,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     buildDateField(
                       label: 'Check-in Date',
                       controller: checkInController,
                       icon: Icons.calendar_today,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     buildDateField(
+                      icon: Icons.calendar_today,
                       label: 'Check-out Date',
                       controller: checkOutController,
-                      icon: Icons.calendar_today,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.supervisor_account),
+                        prefixIcon: Icon(
+                          Icons.supervisor_account,
+                          color: Colors.black,
+                        ),
                         labelText: 'No. of Adults',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -104,7 +113,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                       keyboardType: TextInputType.number,
                       controller: adultsController,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () async {
                         Region _region =
@@ -120,7 +129,6 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                         FirebaseCalls().updateTrip(tripDetails);
                         Navigator.pushReplacementNamed(context, '/home');
                       },
-                      child: const Text('SAVE'),
                       style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
                           backgroundColor: Colors.purpleAccent,
@@ -130,8 +138,9 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           )),
+                      child: const Text('SAVE'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     )
                   ],
