@@ -41,95 +41,102 @@ class _HotelsScreenState extends State<SavedHotelsScreen> {
                     propertyImage: doc['propertyImage'],
                     price: doc['price'],
                     reviewScore: doc['reviewScore']);
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/hotelDetail',
-                        arguments: hotel);
+
+                return Dismissible(
+                  key: Key(hotel.id),
+                  onDismissed: (direction) async {
+                    await savedHotelsCollection.doc(doc.id).delete();
                   },
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
-                    child: Container(
-                      margin: EdgeInsets.only(top: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.black12,
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Row(
-                        children: [
-                          Flexible(
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                bottomLeft: Radius.circular(20),
-                              ),
-                              child: Image.network(
-                                doc['propertyImage'],
-                                fit: BoxFit.fill,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/hotelDetail',
+                          arguments: hotel);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 2),
+                      child: Container(
+                        margin: EdgeInsets.only(top: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.black12,
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          children: [
+                            Flexible(
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                ),
+                                child: Image.network(
+                                  doc['propertyImage'],
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
-                          ),
-                          Flexible(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    doc['name'],
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                            Flexible(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      doc['name'],
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
                                     ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.rate_review_sharp,
-                                        color: Colors.purpleAccent,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        '${doc['reviewScore']}',
-                                        style: TextStyle(
-                                          fontSize: 16,
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.rate_review_sharp,
+                                          color: Colors.purpleAccent,
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    doc['price'],
-                                    style: TextStyle(
-                                      fontSize: 18,
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          '${doc['reviewScore']}',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ],
+                                    Text(
+                                      doc['price'],
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
+                              // child: Column(
+                              //   children: [
+                              //     Text(doc['name']),
+                              //     Text('${doc['reviewScore']}'),
+                              //     Text(doc['price']),
+                              //   ],
+                              // ),
                             ),
-                            // child: Column(
-                            //   children: [
-                            //     Text(doc['name']),
-                            //     Text('${doc['reviewScore']}'),
-                            //     Text(doc['price']),
-                            //   ],
-                            // ),
-                          ),
-                        ],
+                          ],
+                        ),
+                        // ListTile(
+                        //   onTap: () {
+                        //     Navigator.pushNamed(context, '/hotelDetail',
+                        //         arguments: hotel);
+                        //   },
+                        //   leading: Image.network(doc['propertyImage']),
+                        //   title: Text(doc['name']),
+                        //   subtitle: Text('${doc['reviewScore']}'),
+                        //   trailing: Text(doc['price']),
+                        // ),
                       ),
-                      // ListTile(
-                      //   onTap: () {
-                      //     Navigator.pushNamed(context, '/hotelDetail',
-                      //         arguments: hotel);
-                      //   },
-                      //   leading: Image.network(doc['propertyImage']),
-                      //   title: Text(doc['name']),
-                      //   subtitle: Text('${doc['reviewScore']}'),
-                      //   trailing: Text(doc['price']),
-                      // ),
                     ),
                   ),
                 );
