@@ -173,8 +173,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
                                                     Text(
                                                       'Review Score: ${hotel.reviewScore}',
                                                       style: const TextStyle(
-                                                          color: Colors
-                                                              .amberAccent,
+                                                          color: Colors.white,
                                                           fontSize: 20.0,
                                                           fontWeight:
                                                               FontWeight.w400),
@@ -184,13 +183,13 @@ class _HotelsScreenState extends State<HotelsScreen> {
                                                 Text(
                                                   '\$${hotel.price}',
                                                   style: const TextStyle(
-                                                    color: Colors.amberAccent,
+                                                    color: Colors.white,
                                                     fontSize: 25.0,
                                                     fontWeight: FontWeight.w400,
                                                   ),
                                                 ),
                                                 const SizedBox(
-                                                  height: 190,
+                                                  height: 170,
                                                 ),
                                                 Expanded(
                                                   child: Text(

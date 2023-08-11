@@ -18,14 +18,14 @@ class _SplashOneScreenState extends State<SplashOneScreen> {
             padding: const EdgeInsets.only(top: 80.0, left: 30.0, right: 5.0),
             child: Column(
               children: [
-                Text(
+                const Text(
                   'TRIPPLANNER',
                   style: TextStyle(
                       color: Colors.purpleAccent,
                       fontWeight: FontWeight.bold,
                       fontSize: 30),
                 ),
-                Text(
+                const Text(
                   "Welcome to Tripplanner, Let's search for a hotel! ",
                   style: TextStyle(fontSize: 16),
                 ),
